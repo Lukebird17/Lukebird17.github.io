@@ -1,0 +1,85 @@
+DefaultContentLanguage = "zh-cn"
+author = "Hongliang languageCode"  # 请修改为你的名字
+baseURL = "https://Lukebird17.github.io/"  # 请修改为你的 GitHub 用户名
+copyright = "Copyright © 2026"
+enableInlineShortcodes = true
+footnoteReturnLinkContents = "^"
+hasCJKLanguage = true
+languageCode = "zh-cn"
+theme = "hugo-theme-tokiwa"
+title = "My Pages"  # 请修改为你想要的标题
+
+[markup]
+[markup.highlight]
+style = "monokailight"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[params]
+bannerFont = "fonts/exampleFont" 
+description = """
+欢迎来到我的博客
+""" 
+env = "production"
+favicon = "img/favicon-32x32.png" 
+fuse = true # 启用搜索功能
+math = true # 启用数学公式支持
+useChineseFonts = true 
+postDateFormat = "2006-1-2"
+
+[menu]
+# 侧边栏菜单
+[[menu.main]]
+identifier = "post"
+name = "文章"
+url = "/post/"
+weight = 1
+
+[[menu.main]]
+name = "标签"
+url = "/tags/"
+weight = 2
+
+[[menu.main]]
+name = "分类"
+url = "/categories/"
+weight = 3
+
+[[menu.main]]
+identifier = "about"
+name = "关于"
+url = "/about/"
+weight = 4
+
+[taxonomies]
+category = "categories"
+series = "series"
+tag = "tags"
+
+[params.social]
+github = "https://github.com/yourusername"  # 请修改为你的 GitHub 地址
+# 取消注释并添加你的社交媒体链接
+# bilibili = "http://example.com/"
+# gitlab = "https://gitlab.com/"
+# instagram = "http://example.com/"
+# mail = "mailto:your@email.com"
+# twitter = "https://twitter.com/"
+# weibo = "http://example.com/"
+# youtube = "https://youtube.com/"
+# zhihu = "http://example.com/"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+# Hugo 模块配置 - 使用本地主题
+[module]
+[[module.mounts]]
+source = "layouts"
+target = "layouts"
+[[module.mounts]]
+source = "static"
+target = "static"
+[[module.mounts]]
+source = "archetypes"
+target = "archetypes"
