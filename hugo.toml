@@ -1,0 +1,59 @@
+baseURL = "https://Lukebird17.github.io/"
+languageCode = "en-us"
+title = "Hongliang Lu - Homepage"
+
+[params]
+  author = "Hongliang Lu"
+  description = "Hongliang Lu's Homepage"
+  avatar = "/img/avatar.jpg"
+  email = "leonsny2017@gmail.com"
+  location = "Shanghai, China"
+  
+  # Social Links
+  [params.social]
+    github = "https://github.com/Lukebird17"
+    scholar = "#"
+    linkedin = "#"
+    twitter = "#"
+    email = "leonsny2017@gmail.com"
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "#about"
+    weight = 1
+  
+  [[menu.main]]
+    identifier = "publications"
+    name = "Publications"
+    url = "#publications"
+    weight = 2
+  
+  [[menu.main]]
+    identifier = "experience"
+    name = "Experience"
+    url = "#experience"
+    weight = 3
+  
+  [[menu.main]]
+    identifier = "education"
+    name = "Education"
+    url = "#education"
+    weight = 4
+  
+  [[menu.main]]
+    identifier = "services"
+    name = "Services"
+    url = "#services"
+    weight = 5
+  
+  [[menu.main]]
+    identifier = "misc"
+    name = "Misc"
+    url = "#misc"
+    weight = 6
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true

@@ -1,0 +1,12 @@
+name = "Tokiwa Single Page"
+license = "MIT"
+licenselink = "https://github.com/Lukebird17/hugo-theme-tokiwa/blob/main/LICENSE"
+description = "A single-page academic homepage theme"
+homepage = "https://github.com/Lukebird17"
+tags = ["blog", "personal", "academic", "single-page"]
+features = ["responsive", "academic", "single-page"]
+min_version = "0.82.0"
+
+[author]
+  name = "Hongliang Lu"
+  homepage = "https://github.com/Lukebird17"

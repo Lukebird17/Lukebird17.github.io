@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Site.Title }}</title>
+    <meta name="description" content="{{ .Site.Params.description }}">
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Color variables from original theme */
+        :root {
+            --primary-color: #01513a;
+            --primary-light: #028760;
+            --primary-lighter: #027a56;
+            --bg-light: #edf9f8;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --text-muted: #a0aec0;
+            --border-color: #edf2f7;
+            --accent-orange: #ff9800;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.7;
+            background: #ffffff;
+        }
+        
+        /* Fixed Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .nav-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-light);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary-light);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+        
+        /* Main content */
+        .main-content {
+            margin-top: 70px;
+        }
+        
+        /* Hero Section - Two Column Layout */
+        .hero {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #ffffff 100%);
+            padding: 4rem 2rem;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        /* Left Sidebar - Avatar and Basic Info */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+        }
+        
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            display: block;
+            box-shadow: 0 8px 24px rgba(1, 81, 58, 0.15);
+            border: 4px solid white;
+        }
+        
+        .sidebar h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .sidebar .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            line-height: 1.5;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(1, 81, 58, 0.3);
+            background: var(--primary-light);
+        }
+        
+        .contact-info {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .contact-info div {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-info a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+        
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Right Content Area - About and News */
+        .hero-content {
+            padding-top: 0;
+        }
+        
+        .hero-content h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .hero-content h3 {
+            font-size: 1.4rem;
+            color: var(--primary-lighter);
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+        }
+        
+        .hero-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        .hero-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+        
+        /* News Items */
+        .news-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .news-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .news-content {
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+        
+        /* Content Sections - Full Width */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+        
+        section h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        section h3 {
+            font-size: 1.6rem;
+            color: var(--primary-lighter);
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+        }
+        
+        /* Publication Cards */
+        .publication-card {
+            background: var(--bg-light);
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-light);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .publication-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(1, 81, 58, 0.1);
+        }
+        
+        .publication-card .title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+        
+        .publication-card .authors {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .publication-card .venue {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            margin: 0.2rem 0.3rem 0.5rem 0;
+            background: var(--accent-orange);
+            color: white;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .publication-card .description {
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin: 1rem 0;
+        }
+        
+        .publication-card .links {
+            margin-top: 1rem;
+        }
+        
+        .publication-card .links a {
+            display: inline-block;
+            margin-right: 1.2rem;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        
+        .publication-card .links a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* Experience/Education Items */
+        .timeline-item {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        
+        .timeline-item .date {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .timeline-item .position {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-item .organization {
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-item .details {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+        
+        .timeline-item .details strong {
+            color: var(--primary-lighter);
+        }
+        
+        /* Lists */
+        ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+        
+        /* Links */
+        a {
+            color: var(--primary-light);
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        footer {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 4rem;
+        }
+        
+        footer p {
+            margin: 0.5rem 0;
+        }
+        
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .sidebar {
+                position: relative;
+                top: 0;
+                text-align: center;
+            }
+            
+            .avatar {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 2rem;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                gap: 0;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu a {
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+            
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">{{ .Site.Params.author }}</a>
+            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                {{ range .Site.Menus.main }}
+                <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Hero Section - Two Column Layout -->
+        <section class="hero">
+            <div class="hero-container">
+                <!-- Left Sidebar -->
+                <aside class="sidebar">
+                    <img src="{{ .Site.Params.avatar }}" alt="{{ .Site.Params.author }}" class="avatar">
+                    <h1>{{ .Site.Params.author }}</h1>
+                    <p class="subtitle">Computer Science Student<br>AI Researcher</p>
+                    
+                    <div class="social-links">
+                        {{ with .Site.Params.social.github }}
+                        <a href="{{ . }}" target="_blank" title="GitHub">🐙</a>
+                        {{ end }}
+                        {{ with .Site.Params.social.scholar }}
+                        <a href="{{ . }}" target="_blank" title="Google Scholar">🎓</a>
+                        {{ end }}
+                        {{ with .Site.Params.social.linkedin }}
+                        <a href="{{ . }}" target="_blank" title="LinkedIn">💼</a>
+                        {{ end }}
+                        {{ with .Site.Params.social.twitter }}
+                        <a href="{{ . }}" target="_blank" title="Twitter">🐦</a>
+                        {{ end }}
+                        {{ with .Site.Params.social.email }}
+                        <a href="{{ . }}" title="Email">📧</a>
+                        {{ end }}
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div>📍 {{ .Site.Params.location }}</div>
+                        <div>📧 <a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></div>
+                    </div>
+                </aside>
+                
+                <!-- Right Content Area -->
+                <div class="hero-content">
+                    <h2 id="about">About Me</h2>
+                    <p>Hi! I'm Hongliang Lu, a Computer Science student passionate about artificial intelligence and machine learning. I am currently pursuing my studies with a focus on deep learning, computer vision, and natural language processing.</p>
+                    
+                    <p>My research interests include:</p>
+                    <ul>
+                        <li><strong>Deep Learning</strong>: Neural network architectures, optimization methods, and training techniques</li>
+                        <li><strong>Computer Vision</strong>: Image recognition, object detection, and visual understanding</li>
+                        <li><strong>Natural Language Processing</strong>: Language models, text generation, and semantic understanding</li>
+                    </ul>
+                    
+                    <p>Feel free to contact me if you are interested in my research or would like to collaborate on any related topics!</p>
+                    
+                    <p>📄 <em>My CV is available here: <a href="#">Curriculum Vitae (PDF)</a></em></p>
+                    
+                    <h3>🔥 News</h3>
+                    <div class="news-item">
+                        <div class="news-date">2026.01</div>
+                        <div class="news-content">Created my academic homepage. Welcome to visit!</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">2025.12</div>
+                        <div class="news-content">Add your latest news here, such as paper acceptance, conference attendance, awards, etc...</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">2025.11</div>
+                        <div class="news-content">More updates about your research progress, publications, or academic activities...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Full Width Content Sections -->
+        <div class="container">
+            <!-- Publications Section -->
+            <section id="publications">
+                <h2>📚 Publications</h2>
+                
+                <div class="publication-card">
+                    <div class="title">Deep Learning Approach to Image Classification with Enhanced Accuracy</div>
+                    <div class="authors"><strong>Hongliang Lu</strong>, Co-Author Name, Advisor Name</div>
+                    <div class="venue">International Conference on Machine Learning (ICML) 2025</div>
+                    <span class="badge">Oral Presentation</span>
+                    <span class="badge">Best Paper Award</span>
+                    <div class="description">
+                        This paper introduces a novel deep learning architecture that achieves state-of-the-art performance on image classification tasks. Our method combines attention mechanisms with efficient feature extraction to improve both accuracy and computational efficiency.
+                    </div>
+                    <div class="links">
+                        <a href="#">📄 Paper</a>
+                        <a href="#">💻 Code</a>
+                        <a href="#">🌐 Project</a>
+                        <a href="#">🎬 Video</a>
+                    </div>
+                </div>
+                
+                <div class="publication-card">
+                    <div class="title">Natural Language Understanding with Transformer Models</div>
+                    <div class="authors"><strong>Hongliang Lu</strong>, Research Team</div>
+                    <div class="venue">Neural Information Processing Systems (NeurIPS) 2024</div>
+                    <div class="description">
+                        We present a comprehensive study on transformer-based models for natural language understanding tasks. Our experiments demonstrate significant improvements in semantic comprehension and reasoning capabilities.
+                    </div>
+                    <div class="links">
+                        <a href="#">📄 Paper</a>
+                        <a href="#">💻 Code</a>
+                    </div>
+                </div>
+                
+                <div class="publication-card">
+                    <div class="title">Efficient Training Methods for Large-Scale Neural Networks (Preprint)</div>
+                    <div class="authors"><strong>Hongliang Lu</strong>, Collaborators</div>
+                    <div class="venue">arXiv Preprint / Under Review</div>
+                    <div class="description">
+                        This work explores efficient training strategies for large-scale neural networks, focusing on reducing computational costs while maintaining model performance. We propose novel optimization techniques that accelerate convergence.
+                    </div>
+                    <div class="links">
+                        <a href="#">📄 Paper</a>
+                        <a href="#">💻 Code</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience">
+                <h2>💼 Experience</h2>
+                
+                <div class="timeline-item">
+                    <div class="date">2025.01 - Present</div>
+                    <div class="position">Research Intern</div>
+                    <div class="organization">AI Research Laboratory / Tech Company</div>
+                    <div class="details">
+                        <strong>Advisor:</strong> Professor Name<br>
+                        <strong>Research Focus:</strong> Deep learning for computer vision applications<br>
+                        <strong>Key Contributions:</strong>
+                        <ul>
+                            <li>Developed novel neural network architectures for image classification</li>
+                            <li>Published research papers at top-tier conferences</li>
+                            <li>Collaborated with international research teams on cutting-edge projects</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="date">2024.06 - 2024.12</div>
+                    <div class="position">Visiting Scholar</div>
+                    <div class="organization">University of Excellence</div>
+                    <div class="details">
+                        <strong>Advisor:</strong> Professor Name<br>
+                        <strong>Research:</strong> Natural language processing and large language models<br>
+                        Conducted research on transformer architectures and their applications in text understanding.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="date">2023.07 - 2024.05</div>
+                    <div class="position">Software Engineer Intern</div>
+                    <div class="organization">Technology Company</div>
+                    <div class="details">
+                        <strong>Responsibilities:</strong>
+                        <ul>
+                            <li>Developed machine learning pipelines for production systems</li>
+                            <li>Optimized model inference performance and deployment strategies</li>
+                            <li>Collaborated with cross-functional teams on AI product development</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education">
+                <h2>🎓 Education</h2>
+                
+                <div class="timeline-item">
+                    <div class="date">2021.09 - 2025.06</div>
+                    <div class="position">Bachelor of Science in Computer Science</div>
+                    <div class="organization">Shanghai Jiao Tong University</div>
+                    <div class="details">
+                        <strong>Major:</strong> Computer Science and Technology<br>
+                        <strong>Advisor:</strong> Professor Name<br>
+                        <strong>GPA:</strong> 3.8 / 4.0<br>
+                        <strong>Honors:</strong> Outstanding Student Award, Academic Excellence Scholarship, Dean's List
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="date">2024.06 - 2024.12</div>
+                    <div class="position">Exchange Student</div>
+                    <div class="organization">Partner University (if applicable)</div>
+                    <div class="details">
+                        <strong>Focus:</strong> Advanced topics in artificial intelligence and machine learning<br>
+                        Participated in research projects and coursework on deep learning applications.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services">
+                <h2>🤝 Academic Services</h2>
+                
+                <h3>Reviewer</h3>
+                <ul>
+                    <li><strong>CVPR</strong> - Conference on Computer Vision and Pattern Recognition (2024, 2025)</li>
+                    <li><strong>NeurIPS</strong> - Conference on Neural Information Processing Systems (2024, 2025)</li>
+                    <li><strong>ICLR</strong> - International Conference on Learning Representations (2025)</li>
+                    <li><strong>ICML</strong> - International Conference on Machine Learning (2025)</li>
+                </ul>
+                
+                <h3>Volunteer & Organizer</h3>
+                <ul>
+                    <li><strong>AI Workshop</strong> - Co-organizer, 2024</li>
+                    <li><strong>Student Research Symposium</strong> - Volunteer, 2023</li>
+                    <li><strong>Coding Competition</strong> - Judge and Mentor, 2023-2024</li>
+                </ul>
+            </section>
+
+            <!-- Misc Section -->
+            <section id="misc">
+                <h2>🎨 Miscellaneous</h2>
+                
+                <h3>Technical Skills</h3>
+                <ul>
+                    <li><strong>Programming Languages:</strong> Python, C++, Java, JavaScript, CUDA</li>
+                    <li><strong>ML/DL Frameworks:</strong> PyTorch, TensorFlow, JAX, Hugging Face Transformers</li>
+                    <li><strong>Tools & Technologies:</strong> Git, Docker, Linux, AWS, Google Cloud</li>
+                    <li><strong>Languages:</strong> Chinese (Native), English (Fluent)</li>
+                </ul>
+                
+                <h3>Hobbies & Interests</h3>
+                <ul>
+                    <li><strong>Music:</strong> Classical music, Jazz, and electronic music production</li>
+                    <li><strong>Sports:</strong> Basketball, running, and hiking</li>
+                    <li><strong>Reading:</strong> Science fiction, technology books, and research papers</li>
+                    <li><strong>Photography:</strong> Landscape and portrait photography</li>
+                </ul>
+                
+                <h3>Awards & Honors</h3>
+                <ul>
+                    <li>Best Paper Award, ICML 2025</li>
+                    <li>Outstanding Student Award, SJTU, 2024</li>
+                    <li>National Scholarship, 2023</li>
+                    <li>First Prize in Programming Competition, 2022</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© {{ now.Year }} {{ .Site.Params.author }}. All rights reserved.</p>
+        <p>Built with <a href="https://gohugo.io/" target="_blank">Hugo</a></p>
+        <p>Last updated: {{ now.Format "January 2006" }}</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
