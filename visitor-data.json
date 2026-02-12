@@ -1,6 +1,14 @@
 {
-  "totalVisits": 0,
+  "totalVisits": 1,
   "uniqueVisitors": 0,
   "lastUpdated": "2026-02-13",
-  "locations": []
+  "locations": [
+    {
+      "lat": 22.3193,
+      "lng": 114.1694,
+      "city": "Hong Kong",
+      "country": "Hong Kong",
+      "visits": 1
+    }
+  ]
 }
