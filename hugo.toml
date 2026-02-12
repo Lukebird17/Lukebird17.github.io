@@ -7,15 +7,17 @@ title = "Hongliang Lu - Homepage"
   description = "Hongliang Lu's Homepage"
   avatar = "/img/avatar.jpg"
   email = "leonsny2017@gmail.com"
+  email_sjtu = "leon_lhl@sjtu.edu.cn"
   location = "Shanghai, China"
   
   # Social Links
   [params.social]
     github = "https://github.com/Lukebird17"
-    scholar = "#"
-    linkedin = "#"
-    twitter = "#"
+    scholar = "https://scholar.google.com/citations?hl=en&user=nwKRB-EAAAAJ"
+    linkedin = "https://www.linkedin.com/in/hongliang-lu"
+    twitter = "https://x.com/Lukebird18k"
     email = "leonsny2017@gmail.com"
+    email_sjtu = "leon_lhl@sjtu.edu.cn"
 
 [menu]
   [[menu.main]]
@@ -42,11 +44,11 @@ title = "Hongliang Lu - Homepage"
     url = "#education"
     weight = 4
   
-  [[menu.main]]
-    identifier = "services"
-    name = "Services"
-    url = "#services"
-    weight = 5
+  # [[menu.main]]
+  #   identifier = "services"
+  #   name = "Services"
+  #   url = "#services"
+  #   weight = 5
   
   [[menu.main]]
     identifier = "misc"
