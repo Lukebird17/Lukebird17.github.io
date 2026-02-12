@@ -6,11 +6,202 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hongliang Lu - Homepage</title>
     <meta name="description" content="Hongliang Lu&#39;s Homepage">
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HC7V3GLTEE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HC7V3GLTEE');
+    </script>
+    
+    
+    <script src="https://unpkg.com/globe.gl@2.31.0/dist/globe.gl.min.js"></script>
+    
+    
+    <script data-goatcounter="https://lukebird17.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
     <style>
          
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 50px;  
+        }
+        
+         
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+        
+         
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            background: var(--primary-light);
+        }
+        
+         
+        .globe-toggle {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .globe-toggle:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            background: var(--primary-light);
+        }
+        
+        .globe-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9998;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .globe-modal.active {
+            display: flex;
+        }
+        
+        .globe-container {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            height: 80vh;
+            max-height: 700px;
+            background: var(--bg-main);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        
+        .globe-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .globe-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .globe-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .globe-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        #globe {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #globe canvas {
+            display: block !important;
+            margin: 0 auto !important;
+        }
+        
+        .globe-stats {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+            display: flex;
+            justify-content: space-around;
+            z-index: 10;
+        }
+        
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            text-shadow: 0 2px 8px rgba(16, 185, 129, 0.5);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.3rem;
         }
         
          
@@ -24,6 +215,23 @@
             --text-muted: #a0aec0;
             --border-color: #edf2f7;
             --accent-orange: #ff9800;
+            --bg-main: #ffffff;
+            --bg-secondary: #f8f9fa;
+        }
+        
+         
+        [data-theme="dark"] {
+            --primary-color: #10b981;
+            --primary-light: #34d399;
+            --primary-lighter: #6ee7b7;
+            --bg-light: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --accent-orange: #fbbf24;
+            --bg-main: #0f172a;
+            --bg-secondary: #1e293b;
         }
         
         * {
@@ -36,7 +244,8 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
             color: var(--text-primary);
             line-height: 1.7;
-            background: #ffffff;
+            background: var(--bg-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
          
@@ -50,6 +259,12 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             z-index: 1000;
             padding: 0;
+            transition: background-color 0.3s ease;
+        }
+        
+        [data-theme="dark"] .navbar {
+            background: rgba(15, 20, 25, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .nav-container {
@@ -122,6 +337,11 @@
             background: linear-gradient(135deg, var(--bg-light) 0%, #ffffff 100%);
             padding: 2.5rem 2rem;
             scroll-margin-top: 32px;  
+            transition: background 0.3s ease;
+        }
+        
+        [data-theme="dark"] .hero {
+            background: var(--bg-secondary);
         }
         
         .hero-container {
@@ -355,7 +575,7 @@
             margin-bottom: 1.2rem;
             border-radius: 8px;
             border-left: 4px solid var(--primary-light);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease;
             display: grid;
             grid-template-columns: 1fr 160px;
             gap: 1rem;
@@ -508,12 +728,13 @@
         
          
         footer {
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             padding: 2rem 2rem;
             text-align: center;
             color: var(--text-secondary);
             margin-top: 3rem;
             font-size: 0.9rem;
+            transition: background-color 0.3s ease;
         }
         
         footer p {
@@ -541,6 +762,30 @@
             .avatar {
                 width: 180px;
                 height: 180px;
+            }
+            
+            .globe-container {
+                width: 95%;
+                height: 90vh;
+            }
+            
+            .globe-stats {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+            
+            .stat-item {
+                padding: 0.5rem 0;
+            }
+            
+            .globe-toggle {
+                bottom: 90px;
+                right: 20px;
+            }
+            
+            .theme-toggle {
+                right: 20px;
             }
         }
         
@@ -609,6 +854,44 @@
     </style>
 </head>
 <body>
+    
+    <div id="reading-progress"></div>
+    
+    
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <span id="theme-icon">🌙</span>
+    </button>
+    
+    
+    <button class="globe-toggle" id="globe-toggle" aria-label="View visitor map">
+        <span>🌍</span>
+    </button>
+    
+    
+    <div class="globe-modal" id="globe-modal">
+        <div class="globe-container">
+            <div class="globe-header">
+                <div class="globe-title">🌍 Visitor Globe</div>
+                <button class="globe-close" id="globe-close">✕</button>
+            </div>
+            <div id="globe"></div>
+            <div class="globe-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-visits">-</div>
+                    <div class="stat-label">Total Visits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="unique-visitors">-</div>
+                    <div class="stat-label">Unique Visitors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="countries-count">-</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     
     <nav class="navbar">
         <div class="nav-container">
@@ -869,6 +1152,160 @@
             link.addEventListener('click', () => {
                 document.getElementById('navMenu').classList.remove('active');
             });
+        });
+        
+        
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+        
+        
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        
+        themeToggle.addEventListener('click', () => {
+            const theme = htmlElement.getAttribute('data-theme');
+            const newTheme = theme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+        
+        
+        const progressBar = document.getElementById('reading-progress');
+        
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+        
+        
+        const globeToggle = document.getElementById('globe-toggle');
+        const globeModal = document.getElementById('globe-modal');
+        const globeClose = document.getElementById('globe-close');
+        let globeInstance = null;
+        
+        
+        const fallbackData = [
+            { lat: 31.2304, lng: 121.4737, city: 'Shanghai', country: 'China', visits: 523 },
+            { lat: 40.7128, lng: -74.0060, city: 'New York', country: 'USA', visits: 421 },
+            { lat: 51.5074, lng: -0.1278, city: 'London', country: 'UK', visits: 198 },
+            { lat: 48.8566, lng: 2.3522, city: 'Paris', country: 'France', visits: 156 },
+            { lat: 35.6762, lng: 139.6503, city: 'Tokyo', country: 'Japan', visits: 134 },
+            { lat: 52.5200, lng: 13.4050, city: 'Berlin', country: 'Germany', visits: 98 },
+            { lat: 37.5665, lng: 126.9780, city: 'Seoul', country: 'South Korea', visits: 87 },
+            { lat: 43.6532, lng: -79.3832, city: 'Toronto', country: 'Canada', visits: 76 },
+            { lat: -33.8688, lng: 151.2093, city: 'Sydney', country: 'Australia', visits: 65 },
+            { lat: 28.6139, lng: 77.2090, city: 'New Delhi', country: 'India', visits: 54 },
+            { lat: 39.9042, lng: 116.4074, city: 'Beijing', country: 'China', visits: 234 },
+            { lat: 37.7749, lng: -122.4194, city: 'San Francisco', country: 'USA', visits: 187 },
+            { lat: 1.3521, lng: 103.8198, city: 'Singapore', country: 'Singapore', visits: 145 },
+            { lat: 55.7558, lng: 37.6173, city: 'Moscow', country: 'Russia', visits: 112 },
+            { lat: -23.5505, lng: -46.6333, city: 'São Paulo', country: 'Brazil', visits: 89 }
+        ];
+        
+        let visitorData = fallbackData;
+        let totalVisitsGlobal = 0;
+        let uniqueVisitorsGlobal = 0;
+        
+        globeToggle.addEventListener('click', async () => {
+            globeModal.classList.add('active');
+            await loadVisitorData();
+            initGlobe();
+        });
+        
+        async function loadVisitorData() {
+            try {
+                const response = await fetch('/visitor-data.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.locations && data.locations.length > 0) {
+                        visitorData = data.locations;
+                        totalVisitsGlobal = data.totalVisits || 0;
+                        uniqueVisitorsGlobal = data.uniqueVisitors || 0;
+                        console.log('✅ Loaded real visitor data:', visitorData.length, 'locations');
+                    }
+                }
+            } catch (error) {
+                console.log('ℹ️ Using fallback visitor data');
+            }
+        }
+        
+        globeClose.addEventListener('click', () => {
+            globeModal.classList.remove('active');
+        });
+        
+        globeModal.addEventListener('click', (e) => {
+            if (e.target === globeModal) {
+                globeModal.classList.remove('active');
+            }
+        });
+        
+        function initGlobe() {
+            if (globeInstance) return;
+            
+            const container = document.getElementById('globe');
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            
+            
+            const rect = container.getBoundingClientRect();
+            
+            globeInstance = Globe()(container)
+                .width(rect.width)
+                .height(rect.height)
+                .globeImageUrl('https://unpkg.com/three-globe@2.31.0/example/img/earth-blue-marble.jpg')
+                .bumpImageUrl('https://unpkg.com/three-globe@2.31.0/example/img/earth-topology.png')
+                .backgroundImageUrl(isDark ? 
+                    'https://unpkg.com/three-globe@2.31.0/example/img/night-sky.png' : 
+                    'https://unpkg.com/three-globe@2.31.0/example/img/night-sky.png')
+                .pointsData(visitorData)
+                .pointAltitude(0.01)
+                .pointRadius(d => Math.sqrt(d.visits) / 15)
+                .pointColor(d => {
+                    const intensity = d.visits / 523;
+                    return `rgba(16, 185, 129, ${0.3 + intensity * 0.7})`;
+                })
+                .pointLabel(d => `
+                    <div style="background: rgba(0,0,0,0.8); padding: 8px 12px; border-radius: 6px; color: white;">
+                        <div style="font-size: 14px; font-weight: bold; color: #10b981;">${d.city}, ${d.country}</div>
+                        <div style="font-size: 12px; margin-top: 4px;">${d.visits} visits</div>
+                    </div>
+                `)
+                .ringsData(visitorData)
+                .ringColor(() => 'rgba(16, 185, 129, 0.5)')
+                .ringMaxRadius(5)
+                .ringPropagationSpeed(2)
+                .ringRepeatPeriod(1500)
+                .enablePointerInteraction(true);
+            
+            
+            globeInstance.controls().autoRotate = true;
+            globeInstance.controls().autoRotateSpeed = 0.5;
+            
+            
+            globeInstance.pointOfView({ lat: 20, lng: 0, altitude: 2.5 });
+            
+            
+            const totalVisits = totalVisitsGlobal > 0 ? totalVisitsGlobal : visitorData.reduce((sum, d) => sum + d.visits, 0);
+            const uniqueVisitors = uniqueVisitorsGlobal > 0 ? uniqueVisitorsGlobal : Math.floor(totalVisits * 0.7);
+            const countries = new Set(visitorData.map(d => d.country)).size;
+            
+            document.getElementById('total-visits').textContent = totalVisits.toLocaleString();
+            document.getElementById('unique-visitors').textContent = uniqueVisitors.toLocaleString();
+            document.getElementById('countries-count').textContent = countries;
+        }
+        
+        
+        const originalToggleClick = themeToggle.onclick;
+        themeToggle.addEventListener('click', function() {
+            if (globeInstance) {
+                const newTheme = htmlElement.getAttribute('data-theme');
+                
+                globeInstance = null;
+            }
         });
     </script>
 </body>
