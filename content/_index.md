@@ -51,6 +51,7 @@ Developed a quantization framework for Diffusion Transformer super-resolution mo
 </div>
 </div>
 
+<!-- 
 <div class="publication-card">
 <div class="title">TACache: Accelerating Rectified Flow Models via Trajectory-Aware Caching</div>
 <div class="authors">Xun Zhang, ..., <strong>Hongliang Lu</strong>, ..., Yulun Zhang</div>
@@ -63,6 +64,7 @@ Proposed a training-free acceleration framework using Parallel-Orthogonal Veloci
 <a href="#">💻 Code</a>
 </div>
 </div>
+-->
 </section>
 
 <!-- Experience Section -->
