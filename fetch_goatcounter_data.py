@@ -74,8 +74,8 @@ def fetch_goatcounter_stats():
     # 1. 获取总体统计
     total_url = f"https://{GOATCOUNTER_SITE}.goatcounter.com/api/v0/stats/total"
     params = {
-        "start": "2026-01-14",  # 最近30天
-        "end": "2026-02-13"
+        "start": "2025-01-01",
+        "end": "2026-02-26"
     }
     
     print(f"   正在请求总体统计: {total_url}")
