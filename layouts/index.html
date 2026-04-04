@@ -64,16 +64,7 @@
             background: var(--primary-light);
         }
         
-        /* ClustrMaps Globe */
-        .clustrmaps-container {
-            display: flex;
-            justify-content: center;
-            padding: 2rem 0;
-            width: 220px;
-            height: 220px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
+        /* (ClustrMaps globe uses inline styles on container div) */
         
         /* Color variables from original theme */
         :root {
@@ -965,8 +956,8 @@
     </main>
 
     <!-- Visitor Globe -->
-    <div class="clustrmaps-container">
-        <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=T3C6Ro5Xt6DFveMn64u-Y5DQ1as6y_v5jCyHTb9jbjY"></script>
+    <div style="width:250px; position:relative; margin:2rem auto;">
+        <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=T3C6Ro5Xt6DFveMn64u-Y5DQ1as6y_v5jCyHTb9jbjY&w=250"></script>
     </div>
 
     <!-- Footer -->
