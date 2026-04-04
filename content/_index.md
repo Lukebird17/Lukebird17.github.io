@@ -99,7 +99,7 @@ Proposed a training-free acceleration framework using Parallel-Orthogonal Veloci
 <ul>
 <li>Developed quantization frameworks for Diffusion Transformer models achieving W4A4 precision</li>
 <li>Proposed training-free acceleration methods for Rectified Flow models with 4x+ speedups</li>
-<li>Contributed to two papers submitted to ICML 2026</li>
+<li>Contributed to one paper submitted to ICML 2026</li>
 </ul>
 </div>
 </div>
