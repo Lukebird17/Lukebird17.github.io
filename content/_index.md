@@ -27,7 +27,7 @@ title: "Home"
 <div class="publication-card">
 <div class="title">The Great March 100: Detail-Oriented Tasks for Evaluating Embodied AI Agents</div>
 <div class="authors">Ziyu Wang, Chenyuan Liu, Yushun Xiang, Runhao Zhang, Yu Zhang, Qingbo Hao, <strong>Hongliang Lu</strong>, Houyu Chen, Zhizhong Feng, Kaiyue Zheng, Dehao Ye, Xianchao Zeng, Xinyu Zhou, Boran Wen, Jiaxin Li, Mingyu Zhang, Kecheng Zheng, Qian Zhu, Ran Cheng, Yong-Lu Li</div>
-<div class="venue">RSS 2026 (Under Review)</div>
+<!-- <div class="venue">RSS 2026 (Under Review)</div> -->
 <div class="description">
 Developed a 100-task benchmark evaluating embodied AI across six design dimensions including physics, semantics, and temporal reasoning. Comprehensive evaluation revealed critical limitations in fine-grained manipulation capabilities of state-of-the-art models.
 </div>
@@ -41,7 +41,7 @@ Developed a 100-task benchmark evaluating embodied AI across six design dimensio
 <div class="publication-card">
 <div class="title">Q-DiT4SR: Exploration of Detail-Preserving Diffusion Transformer Quantization for Real-World Image Super-Resolution</div>
 <div class="authors">Xun Zhang, ..., <strong>Hongliang Lu</strong>, ..., Yulun Zhang</div>
-<div class="venue">ICML 2026 (Under Review) | Third Author</div>
+<div class="venue">ICML 2026 | Third Author</div>
 <div class="description">
 Developed a quantization framework for Diffusion Transformer super-resolution models, achieving W4A4 precision with minimal quality loss through hierarchical SVD reconstruction and timestep-aware mixed-precision strategies.
 </div>
